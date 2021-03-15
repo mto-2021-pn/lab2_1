@@ -99,7 +99,7 @@ class BinarySearchTest {
     }
 
     @Test
-    void shouldThrowIllegalArgumentException() {
+    void shouldThrowIllegalArgumentExceptionWhenSequenceIsEmpty() {
         int key = 1;
         int[] seq = {};
 
@@ -107,8 +107,18 @@ class BinarySearchTest {
             BinarySearch.search(key, seq);
 
             fail("Should have thrown IllegalArgumentException");
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException e) {}
+    }
 
-        }
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSequenceIsNotSorted() {
+        int key = 1;
+        int[] seq = {3, 2, 1};
+
+        try {
+            BinarySearch.search(key, seq);
+
+            fail("Should have thrown IllegalArgumentException");
+        } catch (IllegalArgumentException e) {}
     }
 }
