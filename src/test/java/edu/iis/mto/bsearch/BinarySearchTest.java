@@ -97,4 +97,18 @@ class BinarySearchTest {
         assertEquals(expectedPosition, result.getPosition());
         assertEquals(expectedFound, result.isFound());
     }
+
+    @Test
+    void shouldThrowIllegalArgumentException() {
+        int key = 1;
+        int[] seq = {};
+
+        try {
+            BinarySearch.search(key, seq);
+
+            fail("Should have thrown IllegalArgumentException");
+        } catch (IllegalArgumentException e) {
+
+        }
+    }
 }
