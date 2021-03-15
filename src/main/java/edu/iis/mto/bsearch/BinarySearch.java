@@ -3,6 +3,11 @@
  */
 package edu.iis.mto.bsearch;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * Klasa implementująca wyszukiwanie binarne
  *
@@ -23,6 +28,7 @@ public class BinarySearch {
      */
     public static SearchResult search(int key, int[] seq) {
         if (seq.length == 0) throw new IllegalArgumentException();
+        if (isSequenceLacksOfDuplicates(seq) == false) throw new IllegalArgumentException();
         if (isSequenceSortedAscending(seq) == false) throw new IllegalArgumentException();
 
         int start = 0;
@@ -50,6 +56,14 @@ public class BinarySearch {
         for (int i = 1; i < seq.length; i++) {
             if (seq[i] <= seq[i-1]) return false;
         }
+
+        return true;
+    }
+
+    private static boolean isSequenceLacksOfDuplicates(int[] seq) {
+        Set<Integer> set = Arrays.stream(seq).boxed().collect(Collectors.toSet());
+
+        if (set.size() != seq.length) return false;
 
         return true;
     }

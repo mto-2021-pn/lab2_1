@@ -121,4 +121,16 @@ class BinarySearchTest {
             fail("Should have thrown IllegalArgumentException");
         } catch (IllegalArgumentException e) {}
     }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSequenceContainsDuplicates() {
+        int key = 1;
+        int[] seq = {1, 1, 2};
+
+        try {
+            BinarySearch.search(key, seq);
+
+            fail("Should have thrown IllegalArgumentException");
+        } catch (IllegalArgumentException e) {}
+    }
 }
