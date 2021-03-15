@@ -70,4 +70,18 @@ class BinarySearchTest {
         assertEquals(expectedFound, result.isFound());
         assertEquals(key, seq[result.getPosition()]);
     }
+
+    @Test
+    void shouldFindElementWhichIsInTheMiddleElementInMultiElementArray() {
+        int key = 2;
+        int[] seq = {1, 2, 3};
+        int expectedPosition = 1;
+        boolean expectedFound = true;
+
+        SearchResult result = BinarySearch.search(key, seq);
+
+        assertEquals(expectedPosition, result.getPosition());
+        assertEquals(expectedFound, result.isFound());
+        assertEquals(key, seq[result.getPosition()]);
+    }
 }
