@@ -65,4 +65,15 @@ class BinarySearchTest {
         assertEquals(CENTER, result.getPosition());
     }
 
+    @Test
+    void SequenceLengthMoreThanOneAndElementNotInSequence() {
+        int[] seq = {1, 2, 3};
+        int key = 4;
+        int NOT_FOUND = -1;
+
+        SearchResult result = BinarySearch.search(key, seq);
+        assertFalse(result.isFound());
+        assertEquals(NOT_FOUND, result.getPosition());
+    }
+
 }
