@@ -29,4 +29,17 @@ class BinarySearchTest {
         assertEquals(expectedFound, result.isFound());
         assertEquals(key, seq[result.getPosition()]);
     }
+
+    @Test
+    void shouldNotFindElementInOneElementArray() {
+        int key = 1;
+        int[] seq = {2};
+        int expectedPosition = -1;
+        boolean expectedFound = false;
+
+        SearchResult result = BinarySearch.search(key, seq);
+
+        assertEquals(expectedPosition, result.getPosition());
+        assertEquals(expectedFound, result.isFound());
+    }
 }
