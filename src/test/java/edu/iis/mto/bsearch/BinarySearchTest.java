@@ -32,4 +32,15 @@ class BinarySearchTest {
         assertEquals(NOT_FOUND, result.getPosition());
     }
 
+    @Test
+    void SequenceLengthMoreThanOneAndElementFirstInSequence() {
+        int[] seq = {1, 2, 3};
+        int key = seq[0];
+        int FIRST = 0;
+
+        SearchResult result = BinarySearch.search(key, seq);
+        assertTrue(result.isFound());
+        assertEquals(FIRST, result.getPosition());
+    }
+
 }
