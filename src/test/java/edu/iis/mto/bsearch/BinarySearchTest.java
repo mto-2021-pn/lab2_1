@@ -43,4 +43,15 @@ class BinarySearchTest {
         assertEquals(FIRST, result.getPosition());
     }
 
+    @Test
+    void SequenceLengthMoreThanOneAndElementLastInSequence() {
+        int[] seq = {1, 2, 3};
+        int LAST = seq.length - 1;
+        int key = seq[LAST];
+
+        SearchResult result = BinarySearch.search(key, seq);
+        assertTrue(result.isFound());
+        assertEquals(LAST, result.getPosition());
+    }
+
 }
