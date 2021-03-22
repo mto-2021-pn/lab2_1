@@ -3,6 +3,9 @@
  */
 package edu.iis.mto.bsearch;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Klasa implementująca wyszukiwanie binarne
  *
@@ -22,9 +25,20 @@ public class BinarySearch {
      *         sekwencji, jezeli nie znaleziony -1)
      */
     public static SearchResult search(int key, int[] seq) {
+        if(seq.length == 0){
+            throw new IllegalArgumentException("Sequence is empty");
+        }
+        if(checkDuplicates(seq)){
+            throw new IllegalArgumentException("Sequence contains duplicate values");
+        }
+
+        if (! checkSorted(seq)){
+            throw new IllegalArgumentException("Sequence must be sorted ");
+        }
         int start = 0;
         int end = seq.length - 1;
         int center;
+
         SearchResult result = new SearchResult();
 
         while (start <= end) {
@@ -43,4 +57,33 @@ public class BinarySearch {
         return result;
     }
 
+    /**
+     * Metoda sprawdza czy podana tablica zawiera duplikaty
+     * @param seq tablica
+     * @return true - jezeli zawiera; false - jeżeli nie
+     */
+    private  static boolean checkDuplicates(int [] seq){
+        Set<Integer> set = new HashSet<>();
+        for (int i=0; i<seq.length; i++){
+            if( ! set.add(seq[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /***
+     * Metoda sprawdza czy tablica jest posortowana
+     * @param seq tablica
+     * @return true - jeżeli jest posortowana; false jeżeli nie
+     */
+    private static boolean checkSorted(int [] seq){
+        for (int i = 0; i < seq.length - 1; i++) {
+            if (seq[i] > seq[i + 1])
+                return false;
+        }
+        return true;
+    }
 }
+
+
