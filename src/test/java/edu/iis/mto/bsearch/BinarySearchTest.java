@@ -12,11 +12,6 @@ class BinarySearchTest {
     void setUp() throws Exception {}
 
     @Test
-    void test() {
-        fail("Not yet implemented");
-    }
-
-    @Test
     void shouldFindElementInOneElementArray() {
         int key = 1;
         int[] seq = {1};
