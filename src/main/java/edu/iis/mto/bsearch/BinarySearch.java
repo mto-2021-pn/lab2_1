@@ -3,6 +3,9 @@
  */
 package edu.iis.mto.bsearch;
 
+import java.util.HashSet;
+import java.util.Set;
+
 /**
  * Klasa implementująca wyszukiwanie binarne
  *
@@ -22,6 +25,12 @@ public class BinarySearch {
      *         sekwencji, jezeli nie znaleziony -1)
      */
     public static SearchResult search(int key, int[] seq) {
+        if (seq.length == 0)
+            throw new IllegalArgumentException("Sequence cannot be empty");
+        if (checkIfSequenceContainsDuplicates(seq))
+            throw new IllegalArgumentException("Sequence cannot contain duplicates");
+        if (!checkIfSequenceIsSortedAscending(seq))
+            throw new IllegalArgumentException("Sequence cannot be unsorted");
         int start = 0;
         int end = seq.length - 1;
         int center;
@@ -30,7 +39,7 @@ public class BinarySearch {
         while (start <= end) {
             center = (start + end) / 2;
             if (seq[center] == key) {
-                result.setPosition(center + 1);
+                result.setPosition(center);
                 break;
             } else {
                 if (seq[center] < key) {
@@ -43,4 +52,23 @@ public class BinarySearch {
         return result;
     }
 
+    private static Boolean checkIfSequenceIsSortedAscending(int[] seq) {
+        int previous = seq[0];
+
+        for (int i = 1; i < seq.length; ++i) {
+            if (previous > seq[i])
+                return false;
+            previous = seq[i];
+        }
+        return true;
+    }
+
+    private static Boolean checkIfSequenceContainsDuplicates(int[] seq) {
+        Set<Integer> set = new HashSet<>();
+        for (Integer element : seq) {
+            if (!set.add(element))
+                return true;
+        }
+        return false;
+    }
 }
