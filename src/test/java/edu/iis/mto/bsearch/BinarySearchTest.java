@@ -8,12 +8,121 @@ import org.junit.jupiter.api.Test;
 
 class BinarySearchTest {
 
-    @BeforeEach
-    void setUp() throws Exception {}
-
     @Test
-    void test() {
-        fail("Not yet implemented");
+    void shouldFindElementInOneElementArray() {
+        int key = 1;
+        int[] seq = {1};
+        int expectedPosition = 0;
+        boolean expectedFound = true;
+
+        SearchResult result = BinarySearch.search(key, seq);
+
+        assertEquals(expectedPosition, result.getPosition());
+        assertEquals(expectedFound, result.isFound());
+        assertEquals(key, seq[result.getPosition()]);
     }
 
+    @Test
+    void shouldNotFindElementInOneElementArray() {
+        int key = 1;
+        int[] seq = {2};
+        int expectedPosition = -1;
+        boolean expectedFound = false;
+
+        SearchResult result = BinarySearch.search(key, seq);
+
+        assertEquals(expectedPosition, result.getPosition());
+        assertEquals(expectedFound, result.isFound());
+    }
+
+    @Test
+    void shouldFindElementWhichIsTheFirstElementInMultiElementArray() {
+        int key = 1;
+        int[] seq = {1, 2};
+        int expectedPosition = 0;
+        boolean expectedFound = true;
+
+        SearchResult result = BinarySearch.search(key, seq);
+
+        assertEquals(expectedPosition, result.getPosition());
+        assertEquals(expectedFound, result.isFound());
+        assertEquals(key, seq[result.getPosition()]);
+    }
+
+    @Test
+    void shouldFindElementWhichIsTheLastElementInMultiElementArray() {
+        int key = 2;
+        int[] seq = {1, 2};
+        int expectedPosition = 1;
+        boolean expectedFound = true;
+
+        SearchResult result = BinarySearch.search(key, seq);
+
+        assertEquals(expectedPosition, result.getPosition());
+        assertEquals(expectedFound, result.isFound());
+        assertEquals(key, seq[result.getPosition()]);
+    }
+
+    @Test
+    void shouldFindElementWhichIsInTheMiddleElementInMultiElementArray() {
+        int key = 2;
+        int[] seq = {1, 2, 3};
+        int expectedPosition = 1;
+        boolean expectedFound = true;
+
+        SearchResult result = BinarySearch.search(key, seq);
+
+        assertEquals(expectedPosition, result.getPosition());
+        assertEquals(expectedFound, result.isFound());
+        assertEquals(key, seq[result.getPosition()]);
+    }
+
+    @Test
+    void shouldNotFindElementInMultiElementArray() {
+        int key = 0;
+        int[] seq = {1, 2};
+        int expectedPosition = -1;
+        boolean expectedFound = false;
+
+        SearchResult result = BinarySearch.search(key, seq);
+
+        assertEquals(expectedPosition, result.getPosition());
+        assertEquals(expectedFound, result.isFound());
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSequenceIsEmpty() {
+        int key = 1;
+        int[] seq = {};
+
+        try {
+            BinarySearch.search(key, seq);
+
+            fail("Should have thrown IllegalArgumentException");
+        } catch (IllegalArgumentException e) {}
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSequenceIsNotSorted() {
+        int key = 1;
+        int[] seq = {3, 2, 1};
+
+        try {
+            BinarySearch.search(key, seq);
+
+            fail("Should have thrown IllegalArgumentException");
+        } catch (IllegalArgumentException e) {}
+    }
+
+    @Test
+    void shouldThrowIllegalArgumentExceptionWhenSequenceContainsDuplicates() {
+        int key = 1;
+        int[] seq = {1, 1, 2};
+
+        try {
+            BinarySearch.search(key, seq);
+
+            fail("Should have thrown IllegalArgumentException");
+        } catch (IllegalArgumentException e) {}
+    }
 }
