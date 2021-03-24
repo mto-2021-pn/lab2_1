@@ -13,68 +13,94 @@ class BinarySearchTest {
     void setUp() throws Exception {}
 
     @Test
-    void test() {
-
-        int[] seq = {20};
-
-        //test1
-        SearchResult bs = BinarySearch.search(20, seq);
+    void searchValue_True_IsInOneElementSequence() {
+        int[] sequence = {20};
+        SearchResult bs = BinarySearch.search(sequence[0], sequence);
         assertTrue(bs.isFound());
         assertEquals(0, bs.getPosition());
+    }
 
-        //test2
-        bs = BinarySearch.search(4, seq);
+    @Test
+    void searchValue_True_IsNotInOneElementSequence() {
+        int[] sequence = {15};
+        SearchResult bs = BinarySearch.search(4, sequence);
         assertFalse(bs.isFound());
         assertEquals(NOT_FOUND, bs.getPosition());
 
-        int[] seq2 = {-4, 0, 6, 34, 46, 689, 1234};
+    }
 
-        //test3
-        bs = BinarySearch.search(-4, seq2);
+    @Test
+    void searchValue_True_IsFirstInSequence() {
+        int[] sequence = {-4, 0, 6, 34, 46, 67, 89, 689, 1234};
+        SearchResult bs = BinarySearch.search(sequence[0], sequence);
         assertTrue(bs.isFound());
         assertEquals(0, bs.getPosition());
+    }
 
-        //test4
-        bs = BinarySearch.search(1234, seq2);
+    @Test
+    void searchValue_True_IsLastInSequence() {
+        int[] sequence = {-4, 0, 6, 9, 34, 46, 689, 777, 1200};
+        SearchResult bs = BinarySearch.search(sequence[sequence.length-1], sequence);
         assertTrue(bs.isFound());
-        assertEquals(seq2.length-1, bs.getPosition());
+        assertEquals(sequence.length-1, bs.getPosition());
+    }
 
-        //test5
-        bs = BinarySearch.search(34, seq2);
+    @Test
+    void searchValue_True_IsMiddleInSequence() {
+        int[] sequence = {-4, 0, 6, 34, 46, 689, 1234};
+        SearchResult bs = BinarySearch.search(sequence[sequence.length/2], sequence);
         assertTrue(bs.isFound());
-        assertEquals(seq2.length/2, bs.getPosition());
+        assertEquals(sequence.length/2, bs.getPosition());
+    }
 
-        //test6
-        bs = BinarySearch.search(1, seq2);
+    @Test
+    void searchValue_False_IsNotInSequence() {
+        int[] sequence = {-4, 0, 1, 2, 3, 4, 5, 6, 34, 46, 689, 1234};
+        SearchResult bs = BinarySearch.search(9, sequence);
         assertFalse(bs.isFound());
         assertEquals(NOT_FOUND, bs.getPosition());
+    }
 
-        int[] seq3 = {-110000, -234, -34, -6, 0, 1, 4, 9, 12, 45, 67, 456, 999, 12345, 999999};
-
-        //test6
-        for(int i=0; i<seq2.length; i++){
-            bs = BinarySearch.search(seq3[i], seq3);
+    @Test
+    void searchValue_True_IsInSequence_WithOddNumberOfElements() {
+        int[] sequence = {-110000, -234, -34, -6, 0, 1, 4, 9, 12, 45, 67, 456, 999, 12345, 999999};
+        for(int i=0; i<sequence.length; i++){
+            SearchResult bs = BinarySearch.search(sequence[i], sequence);
             assertTrue(bs.isFound());
             assertEquals(i, bs.getPosition());
         }
+    }
 
-        //test7
+    @Test
+    void searchValue_True_IsInSequence_WithEvenNumberOfElements() {
+        int[] sequence = {-110000, -234, -34, -6, 0, 1, 2, 3, 4, 9, 12, 45, 67, 87, 98, 99, 456, 999, 12345, 999999};
+        for(int i=0; i<sequence.length; i++){
+            SearchResult bs = BinarySearch.search(sequence[i], sequence);
+            assertTrue(bs.isFound());
+            assertEquals(i, bs.getPosition());
+        }
+    }
+
+    @Test
+    void searchValue_ThrowsException_IsEmptySequence() {
         assertThrows(IllegalArgumentException.class, () -> BinarySearch.search(1, new int[]{}));
+    }
 
-        //test8
+    @Test
+    void searchValue_ThrowsException_IsNoSequence() {
         assertThrows(IllegalArgumentException.class, () -> BinarySearch.search(1, null));
+    }
 
-        //test9
-        int[] seq4 = {-4, 0, 6, 34, 46, 689, 56};
-        assertThrows(IllegalArgumentException.class, () -> BinarySearch.search(1, seq4));
+    @Test
+    void searchValue_ThrowsException_IsDisorderedSequence() {
+        int[] seq1 = {-4, 0, 6, 34, 46, 689, 56};
+        assertThrows(IllegalArgumentException.class, () -> BinarySearch.search(1, seq1));
 
-        //test10
-        int[] seq5 = {5, 5, 5, 5, 4};
-        assertThrows(IllegalArgumentException.class, () -> BinarySearch.search(1, seq5));
+        int[] seq2 = {5, 5, 5, 5, 4};
+        assertThrows(IllegalArgumentException.class, () -> BinarySearch.search(1, seq2));
 
-        //test10
-        int[] seq6 = {0, 1, 0, 1};
-        assertThrows(IllegalArgumentException.class, () -> BinarySearch.search(1, seq6));
+        int[] seq3 = {0, 1, 0, 1};
+        assertThrows(IllegalArgumentException.class, () -> BinarySearch.search(1, seq3));
     }
 
 }
